@@ -81,9 +81,9 @@ transform matrix from image i to j.
 
 ### 4. Eliminate outlier images
 
-  By observing the ***inlier matrix*** we got from step 1, we can determine which images are outliers. Specifically, we first get the max number of inliers each image can get with other images (find it in each row of the ***inlier matrix***). It’s an outlier if this number is too small (meaning no other images have enough inliers with it.).
+  By observing the inlier matrix we got from step 1, we can determine which images are outliers. Specifically, we first find the max number of inliers each image has with other images (find it in each row of the inlier matrix). It’s an outlier if this number is small (meaning no other images have enough inliers with it.). There are various way to define the "smallness" and the detailed implementation in this project is omitted here.
 
-  After eliminating the outliers the ***inlier matrix*** become as follows:
+  After eliminating the outliers the ***inlier matrix*** becomes as follows:
 
   | .    | 1.jpg| 2.jpg | 3.jpg | 4.jpg | 5.jpg  | 6.jpg  | 7.jpg | 8.jpg | 9.jpg  | 10.jpg |
   |----- |------|-----|-----|-----|-----|-----|-----|------|------|-----|
@@ -98,19 +98,19 @@ transform matrix from image i to j.
   | 9.jpg| 860  | 353 | 159 | 79  | 20  | 5   | 799 | 1033 | 0    | 100 |
   | 10.jpg| 171  | 355 | 673 | 521 | 697 | 438 | 39  | 156  | 100  | 0   |
 
-  Notice that whether the outliers are at the end of the image array or not does not matter at all. It'll always output right results even the outlier images are 5.jpg and 8.jpg, for example.
+  Notice that whether the outliers lie on the margins of the inlier matrix or not does not matter. It'll always output correct results even the outlier images are 5.jpg and 8.jpg, for example.
 
 ### 5. Select matchings
 
-  Now given all the remaining images are valid, we have to determine all the match pairs of images. We take following steps:
+  Now given all the remaining images are valid for stitching, we have to determine all the match pairs of images. We take the following steps:
 
-  1) First pick the max value in the ***inlier matrix*** as the first match pair. For example the index (3,5) (or (5.3) equivalently) is picked. Then set the max value to 0.
+  1) First pick the max value of the inlier matrix as the first match pair. For example the index (1,7) (or (7,1) equivalently) is picked. Then set the max value to 0.
 
-  2) Take image 3 and 5 as the initial “source”, each iteration we find one image that is closest to the “source”, and add it to the “source”. Then do this repeatedly. Specifically, we look at 3rd and 5th row and find max value from the two rows, if (3,7) is the max, then image 7 is added to the “source”.
+  2) Take image 1 and 7 as the initial “source”, each iteration we find one image that is closest to the “source”, and add it to the “source”. Then do this repeatedly. Specifically, we look at 1st and 7th row and find max value from the two rows, if (1,5) is the max, then image 5 is added to the “source”.
 
   3) Repeat step 2) for n-2 iterations, where n is the total number of valid images (without outlier images).
 
-  4) Save all the matching pairs into a ***matching matrix***, where element (i, j) being “1” means image i matches with image j.
+  4) Save all the matching pairs into a matching matrix, where element (i, j) being “1” means image i matches with image j.
 
   An example of ***matching matrix***:
 
