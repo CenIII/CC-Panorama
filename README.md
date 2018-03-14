@@ -135,7 +135,7 @@ transform matrix from image i to j.
 
   After knowing which matches with which, we need to decide which one is the “central” image. Being a “central” image means that it will not perform any transformation (or perform transformation T = Identity matrix) in the final panorama, and the other images will perform a transformation with respect to this central image.
 
-  The central image is an image that has nearly equal number of images distributed at each branch that connected to it. This can be calculated using the “matching matrix” we got from step 3. And “evenly distributed” means that the number at each branch has the smallest variance. For example if an image has three branches out reaching other images with 2 images at each branch, then the variance is 0 (since the var of [2,2,2] is 0), while in the mean time there must be an image which has only one branch and the number on that branch is 8, of which the variance is larger (the var of [8,0,0] is large obviously).
+  The central image is an image that has nearly equal number of images distributed at each branch that connected to it. This can be calculated using the ***“matching matrix”*** we got from step 3. And “evenly distributed” means that the number at each branch has the smallest variance. For example if an image has three branches out reaching other images with 2 images at each branch, then the variance is 0 (since the var of [2,2,2] is 0), while in the mean time there must be an image which has only one branch and the number on that branch is 8, of which the variance is larger (the var of [8,0,0] is large obviously).
 
   By doing what we stated above, we can easily determine the central image.
 
