@@ -40,6 +40,7 @@ for i=1:num_im
     inls_mat(j,i) = num_inls;
     end
 end
+
 % eliminate odds.
 max_arr = max(inls_mat);
 preserve_arr=[];
@@ -54,8 +55,6 @@ Matt = Matt(:,preserve_arr);
 Matt = Matt(preserve_arr,:);
 inls_mat = inls_mat(:,preserve_arr);
 inls_mat = inls_mat(preserve_arr,:);
-
-inls_mat
 
 % what we have now: Matt, inls_mat.
 % 2. generate relation tree.
@@ -76,7 +75,7 @@ for i=3:num_im
     Relat(max_idx(1),max_idx(2))=1;
     Relat(max_idx(2),max_idx(1))=1;
 end
-Relat
+
 % 3. find central
     % a nxv matrix saving the number of pics at each branch
 vn = max(sum(Relat,2));
