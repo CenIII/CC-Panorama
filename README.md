@@ -10,14 +10,14 @@ An multi-image stitching algorithm that's robust to outliers.
 ## Example Results
 ### Example 1: *yellowstone4*
 #### Input images
-![img](https://github.com/CenIII/CC-Panorama/tree/master/data/yellowstone4/input_image_snapshot.png)
+![img](https://github.com/CenIII/CC-Panorama/tree/master/data/yellowstone4/snapshot.png)
 
 #### Output image
 ![img](https://github.com/CenIII/CC-Panorama/blob/master/yellowstone4_10imgs.png)
 
 ### Example 2: *intersection*
 #### Input images
-![img](https://github.com/CenIII/CC-Panorama/tree/master/data/intersection/input_image_snapshot.png)
+![img](https://github.com/CenIII/CC-Panorama/tree/master/data/intersection/snapshot.png)
 
 #### Output image
 ![img](https://github.com/CenIII/CC-Panorama/blob/master/intersection_8imgs.png)
