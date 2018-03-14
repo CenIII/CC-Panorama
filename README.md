@@ -1,5 +1,5 @@
 # CC-Panorama
-An multi-image stitching algorithm that's robust to outliers.
+An multi-image stitching algorithm that can deal with outlier images.
 
 ## Features
 - Allow as many input images as possible.
@@ -56,10 +56,10 @@ An multi-image stitching algorithm that's robust to outliers.
 
   Using RANSAC algorithm for every pair of images we get:
 
-  1) an **inlier matrix** where element (i,j) denotes RANSAC inliers
+  1) an ***inlier matrix*** where element (i,j) denotes RANSAC inliers
 between image i and j, and
 
-  2) a **transform-pair matrix** where element (i,j) contains the
+  2) a ***transform-pair matrix*** where element (i,j) contains the
 transform matrix from image i to j.
 
   An example of an **inlier matrix**:
@@ -110,7 +110,7 @@ transform matrix from image i to j.
 
   3) Repeat step 2) for n-2 iterations, where n is the total number of valid images (without outlier images).
 
-  4) Save the matching pair as a “matching matrix”, where element (i, j) being “1” means image i matches with image j.
+  4) Save the matching pair as a ***matching matrix***, where element (i, j) being “1” means image i matches with image j.
 
   An example of matching matrix:
 
@@ -129,7 +129,7 @@ transform matrix from image i to j.
 
   This is essentially a matrix representation of a undirected graph. You can traverse to any of other images from one image. Notice this matrix is symmetric too.
 
-  Here we define an image i has k **branches** if at i'th row, there are k 1's. Fro example image 10.jpg has 3 branches out-reaching to all the other images.
+  Here we define an image i has k ***branches*** if at i'th row, there are k 1's. For example image 10.jpg has 3 branches out-reaching to all the other images.
 
 ### 6. Find central image
 
