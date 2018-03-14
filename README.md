@@ -81,7 +81,7 @@ transform matrix from image i to j.
 
 ### 4. Eliminate outlier images
 
-  By observing the inlier matrix we got from step 1, we can determine which images are outliers. Specifically, we first get the max number of inliers each image can get with other images. If this number is too small (meaning no other images have enough inliers with it.), then we can determine it’s an outlier.
+  By observing the ***inlier matrix*** we got from step 1, we can determine which images are outliers. Specifically, we first get the max number of inliers each image can get with other images (find it in each row of the ***inlier matrix***). It’s an outlier if this number is too small (meaning no other images have enough inliers with it.).
 
   After eliminating the outliers the **inlier matrix** become as follows:
 
@@ -102,15 +102,15 @@ transform matrix from image i to j.
 
 ### 5. Select matchings
 
-  Now given all the remaining images are valid, we have to determine the all the match pairs of images. We take following steps:
+  Now given all the remaining images are valid, we have to determine all the match pairs of images. We take following steps:
 
   1) First pick the max value in the inlier matrix as the first match pair. For example the index (3,5) (or (5.3) equivalently) is picked. Then set the max value to 0.
 
-  2) Take image 3 and 5 as the initial “source”, each iteration we find one image that is closest to the “source”, and add it to the “source”. Then do this repeatedly. Specifically we look at 3rd and 5th row and find max value from the two rows. For example if we find (3,7) is the max, then image 7 is added to the “source”.
+  2) Take image 3 and 5 as the initial “source”, each iteration we find one image that is closest to the “source”, and add it to the “source”. Then do this repeatedly. Specifically, we look at 3rd and 5th row and find max value from the two rows, if (3,7) is the max, then image 7 is added to the “source”.
 
   3) Repeat step 2) for n-2 iterations, where n is the total number of valid images (without outlier images).
 
-  4) Save the matching pair as a ***matching matrix***, where element (i, j) being “1” means image i matches with image j.
+  4) Save all the matching pairs into a ***matching matrix***, where element (i, j) being “1” means image i matches with image j.
 
   An example of matching matrix:
 
@@ -146,3 +146,11 @@ transform matrix from image i to j.
   1) First compute transform matrix (with respect to the central image we just found) for every image, and
 
   2) Second merged to the panorama canvas sequentially. The order of merging is not important since every image's transform matrix is known.
+
+## Limitations and future work
+
+- SIFT descriptor is currently not rotation invariant, meaning it'll fail when big rotation angle appears.
+- Current implementation of RANSAC algorithm is too slow.
+- Blending method is simple.
+- Stitched image can be re-arranged using one of various map projections, e.g. Rectilinear, Cylindrical, etc. (This is to handle the wide-view case as in current implementation the wide-view case will result in extremely large panorama canvas.)
+- There are some error propagation effects when calculating the transform matrix for each image. A new way to determine the transform matrices is in need.
