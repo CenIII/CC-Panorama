@@ -8,12 +8,12 @@ img = cell(0);
 feats = cell(0);
 feats_locs = cell(0);
 for i=1:num_im
-    imageName = strcat(num2str(i),'.jpg'); 
-    dataDir = fullfile('.','data/yellowstone4');
+    imageName = strcat(num2str(i),'.jpg');
+    dataDir = fullfile('..','data/yellowstone4');
     im{i} = imread(fullfile(dataDir, imageName));
     img{i} = im2double(rgb2gray(im{i}));
-    % 1. Feature extraction: harris.m 
-    % 2. Feature descriptor: find_sift.m 
+    % 1. Feature extraction: harris.m
+    % 2. Feature descriptor: find_sift.m
     [feats{i}, feats_locs{i}] = get_feat_desc(img{i},display);
 end
 fprintf('- Get inlier matrix...\n');
@@ -25,7 +25,7 @@ for i=1:num_im
     [cord1, cord2] = get_put_matches(img{i}, img{j}, feats{i}, feats_locs{i}, feats{j}, feats_locs{j},display);
     % 5. RANSAC
     [T, num_inls, avg_res] = get_transform(img{i}, img{j}, cord1, cord2, display);
-    
+
     s.cord1 = cord1;
     s.cord2 = cord2;
     s.T = T;
@@ -34,7 +34,7 @@ for i=1:num_im
     Matt{i,j} = s;
     s.T = inv(T);
     Matt{j,i} = s;
-    
+
     inls_mat(i,j) = num_inls;
     inls_mat(j,i) = num_inls;
     end
@@ -55,7 +55,7 @@ inls_mat = inls_mat(:,preserve_arr);
 inls_mat = inls_mat(preserve_arr,:);
 
 
-% what we have now: Matt, inls_mat. 
+% what we have now: Matt, inls_mat.
 % 2. generate relation tree.
 fprintf('- Select central image...\n');
 % initialization
@@ -86,9 +86,9 @@ for i=1:num_im
    idx_1 = find(rlt(i,:)==1);
    for j = 1:n
        branch_mat(i,j) = 1 + num_on_this_branch(rlt, i, idx_1(j));
-   end  
+   end
 end
-    % find central by calculating the variance. 
+    % find central by calculating the variance.
 br_mat_var = var(branch_mat,0,2);
 [~, cent_num] = min(br_mat_var);
 % 4. compute T's
@@ -97,7 +97,6 @@ Ts = cell(0);
 Ts{cent_num} = eye(3);
 Ts = get_T_for_all(Ts, cent_num, Relat, Matt);
 
-% 5. stitch. verify and abandon. 
+% 5. stitch. verify and abandon.
 fprintf('- Stitching...\n');
 im_out = get_stitchM(im, Ts, cent_num,1);
-
