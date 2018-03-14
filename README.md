@@ -10,33 +10,33 @@ An multi-image stitching algorithm that's robust to outliers.
 ## Example Results
 ### Example 1: *yellowstone4*
 #### Input images
-![img](https://github.com/CenIII/CC-Panorama/tree/master/data/yellowstone4/Input_image_snapshot.png)
+![img](https://github.com/CenIII/CC-Panorama/tree/master/data/yellowstone4/input_image_snapshot.png)
 
 #### Output image
 ![img](https://github.com/CenIII/CC-Panorama/blob/master/yellowstone4_10imgs.png)
 
 ### Example 2: *intersection*
 #### Input images
-![img](https://github.com/CenIII/CC-Panorama/tree/master/data/intersection/Input_image_snapshot.png)
+![img](https://github.com/CenIII/CC-Panorama/tree/master/data/intersection/input_image_snapshot.png)
 
 #### Output image
 ![img](https://github.com/CenIII/CC-Panorama/blob/master/intersection_8imgs.png)
 
 
 ## Brief Intro to the Algorithm
-1. Feature extraction
+### 1. Feature extraction
 
   For feature extraction, we use Harris corner detector to detect corners in both images, and then use SIFT method to convert all the feature points to 128-dimention vectors.
 
   - [x] Harris corner detector
   - [x] SIFT descriptor
 
-2. Putative matching
+### 2. Putative matching
 
   - [x] 2-norm distance (btw SIFT descriptors)
   - [x] Lowe's law
 
-3. Compute inlier matrix and transform-pair matrix
+### 3. Compute inlier matrix and transform-pair matrix
 
   As the same with what we did in Part II, we first compute
 
@@ -48,11 +48,11 @@ transform matrix from image i to j.
 
   - [x] RANSAC
 
-4. Eliminate outlier images
+### 4. Eliminate outlier images
 
   By observing the inlier matrix we got from step 1, we can determine which images are outliers. Specifically, we first get the max number of inliers each image can get with other images. If this number is too small (meaning no other images have enough inliers with it.), then we can determine it’s an outlier.
 
-5. Select matchings
+### 5. Select matchings
 
   Now given all the remaining images are valid, we have to determine the all the match pairs of images. We take following steps:
 
@@ -64,7 +64,7 @@ transform matrix from image i to j.
 
   4) Save the matching pair as a “matching matrix”, where element (i, j) being “1” means image i matches with image j.
 
-6. Find central image
+### 6. Find central image
 
   After knowing which matches with which, we need to decide which one is the “central” image. Being a “central” image means that it will not perform any transformation (or perform transformation T = Identity matrix) in the final panorama, and the other images will perform a transformation with respect to this central image.
 
@@ -72,7 +72,7 @@ transform matrix from image i to j.
 
   By doing what we stated above, we can easily determine the central image.
 
-5. Stitch images
+### 7. Stitch images
 
   This step is to:
 
