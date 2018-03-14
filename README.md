@@ -22,6 +22,15 @@ An multi-image stitching algorithm that's robust to outliers.
 #### Output image
 ![img](https://github.com/CenIII/CC-Panorama/blob/master/rdm/intersection_8imgs.png)
 
+## How to run it
+
+  1. Create a new directory in ./data/ and put the input images into it.
+
+  2. Rename your images from 1 to the # of images like "1.jpg", "2.jpg" ... "15.jpg".
+
+  3. Change input path in file "./src/Multi_pano.m".
+
+  4. In Matlab console, run "Multi_pano".
 
 ## Brief Intro to the Algorithm
 ### 1. Feature extraction
